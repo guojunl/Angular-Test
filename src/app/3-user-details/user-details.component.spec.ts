@@ -1,11 +1,12 @@
 import { Observable, Subject } from 'rxjs';
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { UserDetailsComponent } from './user-details.component';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterOutlet } from '@angular/router';
 
 class RouterStub {
   navigate(params) {
@@ -30,6 +31,7 @@ describe('UserDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule.withRoutes([])],
       declarations: [UserDetailsComponent],
       providers: [
         { provide: Router, useClass: RouterStub },
@@ -66,4 +68,12 @@ describe('UserDetailsComponent', () => {
 
     expect(spy).toHaveBeenCalledWith(['not-found']);
   });
+
+  it('should have a router outlet', () => {
+    const de = fixture.debugElement.query(By.directive(RouterOutlet));
+    expect(de).toBeTruthy();
+  });
+
+  it('should have a link to todos page')
+
 });
